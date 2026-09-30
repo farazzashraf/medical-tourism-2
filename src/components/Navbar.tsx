@@ -103,8 +103,8 @@ export const Navbar = ({ onOpenEnquiry, onNavigate, currentRoute = '/' }: Navbar
               </svg>
             </div>
             <div className="flex items-baseline">
-              <span className="text-lg sm:text-2xl font-bold tracking-tight text-[#132520] font-jakarta">Care</span>
-              <span className="text-lg sm:text-2xl font-bold tracking-tight text-[#183f34] font-jakarta">Kerala</span>
+              <span className="text-lg sm:text-2xl font-bold tracking-tight text-[#132520] font-jakarta">Kerala</span>
+              <span className="text-lg sm:text-2xl font-bold tracking-tight text-[#183f34] font-jakarta">Care</span>
             </div>
           </a>
 
