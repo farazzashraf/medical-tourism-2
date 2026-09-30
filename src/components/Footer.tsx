@@ -172,8 +172,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenEnquiry, onNavigate }) => 
 
               <div className="flex items-center gap-2.5">
                 <Mail size={16} className="text-[#88c343] shrink-0" />
-                <a href="mailto:care@carekerala.com" className="hover:text-white transition-colors">
-                  care@carekerala.com
+                <a href="mailto:care@keralacare.com" className="hover:text-white transition-colors">
+                  care@keralacare.com
                 </a>
               </div>
             </div>
@@ -194,7 +194,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenEnquiry, onNavigate }) => 
         {/* Bottom Bar: Copyright and Back to Top */}
         <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400 text-center sm:text-left">
           <div>
-            © {new Date().getFullYear()} CareKerala Medical Travel. All rights reserved.
+            © {new Date().getFullYear()} KeralaCare Medical Travel. All rights reserved.
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6">

@@ -86,7 +86,7 @@ export const Navbar = ({ onOpenEnquiry, onNavigate, currentRoute = '/' }: Navbar
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
-          {/* Logo matching the screenshot: lotus icon + CareKerala */}
+          {/* Logo matching the screenshot: lotus icon + KeralaCare */}
           <a 
             href="/" 
             onClick={handleGoHome}

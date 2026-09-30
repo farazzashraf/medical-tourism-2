@@ -65,7 +65,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-white text-[#132520] font-jakarta selection:bg-[#183f34] selection:text-white">
-      {/* Sticky Header matching CareKerala design */}
+      {/* Sticky Header matching KeralaCare design */}
       <Navbar 
         onOpenEnquiry={handleOpenEnquiry} 
         onNavigate={navigateTo}
@@ -82,7 +82,7 @@ export function App() {
             onGoHome={() => navigateTo('/')}
           />
         ) : (
-          /* Full Homepage with CareKerala hierarchy */
+          /* Full Homepage with KeralaCare hierarchy */
           <>
             {/* Section 1: Hero with Organic Backwaters Mask, Script flourish & Search Bar */}
             <Hero 

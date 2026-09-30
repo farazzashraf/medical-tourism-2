@@ -16,7 +16,7 @@ export const TestimonialsSection = () => {
     },
     {
       id: 2,
-      quote: "World-class treatment and a beautiful place to recover. I highly recommend CareKerala to anyone seeking quality healthcare.",
+      quote: "World-class treatment and a beautiful place to recover. I highly recommend KeralaCare to anyone seeking quality healthcare.",
       rating: 5,
       name: "Ahmed R.",
       country: "UAE",

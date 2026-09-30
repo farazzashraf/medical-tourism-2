@@ -168,7 +168,7 @@ export const WhyChooseSection = () => {
 
               <div className="mt-5 space-y-4 text-sm text-[#536863] leading-relaxed">
                 <p>
-                  CareKerala was founded with a singular purpose: to bridge the gap between patients in the UAE, GCC, and West seeking high-precision healthcare without crippling waitlists or exorbitant private costs.
+                  KeralaCare was founded with a singular purpose: to bridge the gap between patients in the UAE, GCC, and West seeking high-precision healthcare without crippling waitlists or exorbitant private costs.
                 </p>
                 <p>
                   Kerala is known globally as &quot;God&apos;s Own Country&quot; — home to the highest health indicators in South Asia, JCI-accredited tertiary hospitals, Da Vinci robotic surgical theaters, and the authentic 5,000-year lineage of Ayurveda.
