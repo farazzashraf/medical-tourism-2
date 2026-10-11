@@ -1,165 +1,76 @@
-import { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { SpecialtiesBento } from './components/SpecialtiesBento';
-import { WhyChooseSection } from './components/WhyChooseSection';
-import { TestimonialsSection } from './components/TestimonialsSection';
-import { AccreditationMarquee } from './components/AccreditationMarquee';
-import { CtaBanner } from './components/CtaBanner';
-import { StatsStrip } from './components/StatsStrip';
-import { JourneySection } from './components/JourneySection';
-import { PackagesSection } from './components/PackagesSection';
-import { HospitalsDoctors } from './components/HospitalsDoctors';
-import { HealFasterSection } from './components/HealFasterSection';
-import { FaqSection } from './components/FaqSection';
-import { DoctorsBlog } from './components/DoctorsBlog';
-import { EnquirySection } from './components/EnquirySection';
+import { useState } from 'react';
+import { NavbarV2 } from './components/v2/NavbarV2';
+import { HeroV2 } from './components/v2/HeroV2';
+import { MissionWhySection } from './components/v2/MissionWhySection';
+import { ServicesSection } from './components/v2/ServicesSection';
+import { CareCategoriesSection } from './components/v2/CareCategoriesSection';
+import { ContactSection } from './components/v2/ContactSection';
+import { FooterV2 } from './components/v2/FooterV2';
+import { WhatsAppFloatingV2 } from './components/v2/WhatsAppFloatingV2';
 import { EnquiryModal } from './components/EnquiryModal';
-import { VideoModal } from './components/VideoModal';
-import { WhatsAppFloating } from './components/WhatsAppFloating';
-import { Footer } from './components/Footer';
-import { SpecialtyPage } from './components/SpecialtyPage';
+import { BRAND } from './config/brand';
 
 export function App() {
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const [selectedTreatment, setSelectedTreatment] = useState<string>('ortho');
-  const [currentPath, setCurrentPath] = useState<string>(() => window.location.pathname || '/');
-
-  // Handle browser back and forward button events
-  useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname || '/');
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
-  const navigateTo = (path: string) => {
-    window.history.pushState(null, '', path);
-    setCurrentPath(path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const [selectedTreatment, setSelectedTreatment] = useState<string>('General Medical Consultation');
 
   const handleOpenEnquiry = (treatment?: string) => {
-    if (treatment && treatment !== 'all') {
+    if (treatment) {
       setSelectedTreatment(treatment);
     }
-    // If on homepage and the enquiry section exists, smoothly scroll to it
-    if (currentPath === '/' && document.getElementById('enquiry')) {
-      document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth' });
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     } else {
       setIsEnquiryModalOpen(true);
     }
   };
 
-  const handleCloseEnquiry = () => {
-    setIsEnquiryModalOpen(false);
-  };
-
-  // Check if current route is a specialty page
-  const isSpecialtyPage = currentPath.startsWith('/specialties/');
-  const specialtySlug = isSpecialtyPage 
-    ? currentPath.replace('/specialties/', '').replace(/\/$/, '') 
-    : '';
-
   return (
-    <div className="min-h-screen bg-white text-[#132520] font-jakarta selection:bg-[#183f34] selection:text-white">
-      {/* Sticky Header matching KeralaCare design */}
-      <Navbar 
-        onOpenEnquiry={handleOpenEnquiry} 
-        onNavigate={navigateTo}
-        currentRoute={currentPath}
+    <div className="min-h-screen bg-white text-[#113830] font-jakarta selection:bg-[#0d766e] selection:text-white overflow-x-hidden">
+      {/* 1. Top Navbar matching uploaded design (Logo + About + Services + Treatment + Contact + Get Started) */}
+      <NavbarV2 
+        brandName={BRAND.name}
+        brandMonogram={BRAND.monogram}
+        onOpenEnquiry={() => handleOpenEnquiry()} 
       />
 
       <main>
-        {isSpecialtyPage ? (
-          /* Dedicated Specialty Page */
-          <SpecialtyPage
-            slug={specialtySlug}
-            onOpenEnquiry={handleOpenEnquiry}
-            onNavigateSpecialty={(slug) => navigateTo(`/specialties/${slug}`)}
-            onGoHome={() => navigateTo('/')}
-          />
-        ) : (
-          /* Full Homepage with KeralaCare hierarchy */
-          <>
-            {/* Section 1: Hero with Organic Backwaters Mask, Script flourish & Search Bar */}
-            <Hero 
-              onOpenEnquiry={handleOpenEnquiry} 
-              onOpenVideo={() => setIsVideoModalOpen(true)}
-              onNavigate={navigateTo}
-            />
+        {/* 2. Hero Section: World-Class Care Meets Ancient Wisdom */}
+        <HeroV2 
+          onExploreTreatments={() => {
+            const el = document.getElementById('treatments');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }} 
+        />
 
-            {/* Section 2: Popular Treatments (Dental, Ortho, Ayurvedic, Cosmetic, Eyes) */}
-            <SpecialtiesBento 
-              onOpenEnquiry={handleOpenEnquiry} 
-              onNavigate={navigateTo}
-            />
+        {/* 3. Page 2: Our Mission, Hospital Atrium Photo + 15+ Partners, Why India?, Our Core Values */}
+        <MissionWhySection brandName={BRAND.name} />
 
-            {/* Section 3: Why Choose Kerala for Your Treatment? (6 Feature Badges & Backwaters View) */}
-            <WhyChooseSection />
+        {/* 4. Page 3: Seamless Support, Every Step of the Way (Visa, Travel, Hospital Coordination, Pre & Post Support) */}
+        <ServicesSection />
 
-            {/* Section 4: Hear from Our Patients (Verified Testimonials with Controls) */}
-            <TestimonialsSection />
+        {/* 5. Page 4: Specialized Care Categories (Dental, Wellness, Ayurveda, Orthopedics, Eye Care, Custom Inquiry) */}
+        <CareCategoriesSection onOpenEnquiry={handleOpenEnquiry} />
 
-            {/* Section 5: Our Hospital Partners (Aster, VPS, KIMS, Rajagiri, Amrita, SUT) */}
-            <AccreditationMarquee />
-
-            {/* Section 6: Plan Your Treatment in Kerala Today (Signature Panoramic CTA Banner) */}
-            <CtaBanner onOpenEnquiry={() => handleOpenEnquiry()} />
-
-            {/* Section 7: Stats Counter Strip with Deep Emerald Background */}
-            <StatsStrip />
-
-            {/* Section 8: Your Journey to Wellness (3-Phase Interactive Patient Pathway) */}
-            <JourneySection onOpenEnquiry={() => handleOpenEnquiry()} />
-
-            {/* Section 9: Curated Treatment Packages */}
-            <PackagesSection onOpenEnquiry={handleOpenEnquiry} />
-
-            {/* Section 10: Hospitals & Doctors Directory */}
-            <HospitalsDoctors 
-              onOpenEnquiry={handleOpenEnquiry} 
-              onNavigate={navigateTo}
-            />
-
-            {/* Section 11: Heal Faster in Nature's Lap (Serene Convalescence) */}
-            <HealFasterSection onOpenEnquiry={() => handleOpenEnquiry()} />
-
-            {/* Section 12: Frequently Asked Questions (Accordion) */}
-            <FaqSection />
-
-            {/* Section 13: Clinical Insights & Articles (Blog) */}
-            <DoctorsBlog onOpenEnquiry={handleOpenEnquiry} />
-
-            {/* Section 14: Main Enquiry Form Section */}
-            <EnquirySection initialTreatment={selectedTreatment} />
-          </>
-        )}
+        {/* 6. Page 5: Start Your Journey (Deep Emerald Info Card + Crisp White Enquiry Form) */}
+        <ContactSection 
+          initialTreatment={selectedTreatment} 
+          brandName={BRAND.name}
+        />
       </main>
 
-      {/* Modern Deep Emerald Footer */}
-      <Footer 
-        onOpenEnquiry={handleOpenEnquiry} 
-        onNavigate={navigateTo}
-      />
+      {/* 7. Minimalist Clean Footer matching uploaded design */}
+      <FooterV2 brandName={BRAND.name} />
 
-      {/* Floating WhatsApp Action Button */}
-      <WhatsAppFloating />
+      {/* 8. WhatsApp Action Button matching bottom-right of uploaded design */}
+      <WhatsAppFloatingV2 brandName={BRAND.name} />
 
-      {/* Interactive Enquiry Modal */}
+      {/* Secondary Fast Modal for category triggers */}
       <EnquiryModal
         isOpen={isEnquiryModalOpen}
-        onClose={handleCloseEnquiry}
+        onClose={() => setIsEnquiryModalOpen(false)}
         selectedTreatment={selectedTreatment}
-      />
-
-      {/* Video Modal Preview */}
-      <VideoModal
-        isOpen={isVideoModalOpen}
-        onClose={() => setIsVideoModalOpen(false)}
-        title="Discover Healthcare & Healing in Kerala"
       />
     </div>
   );

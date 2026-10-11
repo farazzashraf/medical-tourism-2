@@ -83,6 +83,10 @@ img, video, canvas, svg {
   font-family: 'Caveat', 'Dancing Script', cursive;
 }
 
+.font-serif-accent {
+  font-family: 'Newsreader', 'Playfair Display', Georgia, serif;
+}
+
 .font-jakarta {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
