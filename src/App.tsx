@@ -7,12 +7,21 @@ import { CareCategoriesSection } from './components/v2/CareCategoriesSection';
 import { ContactSection } from './components/v2/ContactSection';
 import { FooterV2 } from './components/v2/FooterV2';
 import { WhatsAppFloatingV2 } from './components/v2/WhatsAppFloatingV2';
+import { QuickInquiryDrawer } from './components/v2/QuickInquiryDrawer';
 import { EnquiryModal } from './components/EnquiryModal';
 import { BRAND } from './config/brand';
 
 export function App() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+  const [inquiryEmail, setInquiryEmail] = useState('');
   const [selectedTreatment, setSelectedTreatment] = useState<string>('General Medical Consultation');
+
+  const handleOpenQuickInquiry = (email = '', treatment?: string) => {
+    if (email) setInquiryEmail(email);
+    if (treatment) setSelectedTreatment(treatment);
+    setIsDrawerOpen(true);
+  };
 
   const handleOpenEnquiry = (treatment?: string) => {
     if (treatment) {
@@ -28,20 +37,17 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-white text-[#113830] font-jakarta selection:bg-[#0d766e] selection:text-white overflow-x-hidden">
-      {/* 1. Top Navbar matching uploaded design (Logo + About + Services + Treatment + Contact + Get Started) */}
+      {/* 1. Top Navbar (Logo + About + Services + Treatment + Contact + Get Started) */}
       <NavbarV2 
         brandName={BRAND.name}
         brandMonogram={BRAND.monogram}
-        onOpenEnquiry={() => handleOpenEnquiry()} 
+        onOpenEnquiry={() => handleOpenQuickInquiry()} 
       />
 
       <main>
-        {/* 2. Hero Section: World-Class Care Meets Ancient Wisdom */}
+        {/* 2. Hero Section: Quick Inquiry Search-Bar Widget & Headline */}
         <HeroV2 
-          onExploreTreatments={() => {
-            const el = document.getElementById('treatments');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }} 
+          onQuickConsultation={(email) => handleOpenQuickInquiry(email)} 
         />
 
         {/* 3. Page 2: Our Mission, Hospital Atrium Photo + 15+ Partners, Why India?, Our Core Values */}
@@ -51,7 +57,7 @@ export function App() {
         <ServicesSection />
 
         {/* 5. Page 4: Specialized Care Categories (Dental, Wellness, Ayurveda, Orthopedics, Eye Care, Custom Inquiry) */}
-        <CareCategoriesSection onOpenEnquiry={handleOpenEnquiry} />
+        <CareCategoriesSection onOpenEnquiry={(treatment) => handleOpenQuickInquiry('', treatment)} />
 
         {/* 6. Page 5: Start Your Journey (Deep Emerald Info Card + Crisp White Enquiry Form) */}
         <ContactSection 
@@ -60,13 +66,22 @@ export function App() {
         />
       </main>
 
-      {/* 7. Minimalist Clean Footer matching uploaded design */}
+      {/* 7. Minimalist Clean Footer */}
       <FooterV2 brandName={BRAND.name} />
 
-      {/* 8. WhatsApp Action Button matching bottom-right of uploaded design */}
+      {/* 8. WhatsApp Action Button */}
       <WhatsAppFloatingV2 brandName={BRAND.name} />
 
-      {/* Secondary Fast Modal for category triggers */}
+      {/* Slide-out Instant Inquiry Drawer from right */}
+      <QuickInquiryDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        initialEmail={inquiryEmail}
+        initialTreatment={selectedTreatment}
+        brandName={BRAND.name}
+      />
+
+      {/* Secondary Fast Modal for fallback */}
       <EnquiryModal
         isOpen={isEnquiryModalOpen}
         onClose={() => setIsEnquiryModalOpen(false)}
