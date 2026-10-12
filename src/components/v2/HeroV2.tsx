@@ -1,21 +1,11 @@
-import { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface HeroV2Props {
-  onGetQuotation?: (email: string) => void;
+  onGetQuotation?: () => void;
 }
 
 export const HeroV2 = ({ onGetQuotation }: HeroV2Props) => {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onGetQuotation) {
-      onGetQuotation(email);
-    }
-  };
-
   return (
     <section 
       id="hero" 
@@ -50,36 +40,23 @@ export const HeroV2 = ({ onGetQuotation }: HeroV2Props) => {
           Your seamless journey to health and wellness in India. We coordinate everything so you can focus on healing.
         </motion.p>
 
-        {/* Quick Quotation Widget matching UX Pilot design */}
+        {/* Clean CTA Button: Opens Drawer for Full Quotation Details */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-9 sm:mt-10 max-w-xl mx-auto w-full px-2"
+          className="mt-10 flex flex-col items-center justify-center gap-3"
         >
-          <form 
-            onSubmit={handleSubmit}
-            className="relative flex flex-col sm:flex-row items-stretch sm:items-center bg-white rounded-2xl sm:rounded-full p-1.5 sm:p-2 shadow-xl shadow-teal-900/5 border border-gray-100/90 hover:border-teal-300 transition-all duration-300 focus-within:border-[#0d766e] focus-within:ring-2 focus-within:ring-teal-100"
+          <button
+            onClick={() => onGetQuotation && onGetQuotation()}
+            className="group inline-flex items-center gap-2.5 bg-[#0d766e] hover:bg-[#0b635c] text-white px-8 py-4 rounded-full text-base sm:text-lg font-medium transition-all duration-300 shadow-md hover:shadow-xl hover:gap-3.5 cursor-pointer"
           >
-            <input 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email address"
-              className="w-full bg-transparent pl-4 sm:pl-6 pr-3 py-3 text-sm sm:text-base text-gray-800 placeholder-gray-400 focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="mt-2 sm:mt-0 shrink-0 bg-[#0d766e] hover:bg-[#0b635c] text-white px-6 sm:px-7 py-3 rounded-xl sm:rounded-full text-sm font-semibold transition-all inline-flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
-            >
-              <span>Get Quotation for Treatment</span>
-              <ChevronRight className="size-4" />
-            </button>
-          </form>
+            <span>Get Quotation</span>
+            <ArrowRight className="size-5 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </button>
 
-          {/* Micro-copy below widget matching screenshot */}
-          <p className="mt-3 text-xs sm:text-[13px] text-gray-400 text-center font-normal">
-            No commitment. Receive a confidential hospital cost estimate directly to your email.
+          <p className="text-xs sm:text-[13px] text-gray-400 text-center font-normal">
+            No commitment. Just expert guidance & confidential cost breakdown.
           </p>
         </motion.div>
 

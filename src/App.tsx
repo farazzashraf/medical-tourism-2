@@ -33,9 +33,9 @@ export function App() {
       />
 
       <main>
-        {/* 2. Hero Section: Quick Quotation Search-Bar Widget & Headline */}
+        {/* 2. Hero Section: Get Quotation Button & Headline */}
         <HeroV2 
-          onGetQuotation={(email: string) => handleOpenQuickInquiry(email)} 
+          onGetQuotation={() => handleOpenQuickInquiry()} 
         />
 
         {/* 3. Page 2: Our Mission, Hospital Atrium Photo + 15+ Partners, Why India?, Our Core Values */}
