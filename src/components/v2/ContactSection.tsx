@@ -42,19 +42,22 @@ export const ContactSection = ({
     setIsSubmitting(true);
 
     try {
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: '5c007dc4-6992-4f05-832c-383dbbb2b665',
-          subject: `New Treatment Quotation Request - ${brandName}`,
-          from_name: formData.fullName,
-          email: formData.email,
-          phone: `${formData.countryCode} ${formData.phone}`,
-          message: formData.message,
-          recipient_email: 'farazashraf210@gmail.com',
-        }),
-      });
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      if (accessKey) {
+        await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `New Treatment Quotation Request - ${brandName}`,
+            from_name: formData.fullName,
+            email: formData.email,
+            phone: `${formData.countryCode} ${formData.phone}`,
+            message: formData.message,
+            to_email: 'farazashraf210@gmail.com',
+          }),
+        });
+      }
     } catch (err) {
       console.log('Submission note:', err);
     } finally {

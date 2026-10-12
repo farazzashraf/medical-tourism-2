@@ -69,21 +69,23 @@ export const QuickInquiryDrawer = ({
     setIsSubmitting(true);
     
     try {
-      // Send directly to farazashraf210@gmail.com via Web3Forms endpoint
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: '5c007dc4-6992-4f05-832c-383dbbb2b665', // Web3Forms form token
-          subject: `New Treatment Quotation Request - ${treatment} - IndiaCareTrip`,
-          from_name: fullName,
-          email: email,
-          phone: `${countryCode} ${phone}`,
-          treatment: treatment,
-          message: message,
-          recipient_email: 'farazashraf210@gmail.com',
-        }),
-      });
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      if (accessKey) {
+        await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `New Treatment Quotation Request - ${treatment} - IndiaCareTrip`,
+            from_name: fullName,
+            email: email,
+            phone: `${countryCode} ${phone}`,
+            treatment: treatment,
+            message: message,
+            to_email: 'farazashraf210@gmail.com',
+          }),
+        });
+      }
     } catch (err) {
       console.log('Quotation form note:', err);
     } finally {
