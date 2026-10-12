@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, CheckCircle2, Phone, Mail, Shield, ArrowRight } from 'lucide-react';
+import { X, CheckCircle2, Shield, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BRAND } from '../../config/brand';
 
@@ -64,13 +64,32 @@ export const QuickInquiryDrawer = ({
     { code: '+91', name: 'India (+91)', flag: '🇮🇳' },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+    
+    try {
+      // Send directly to farazashraf210@gmail.com via Web3Forms endpoint
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: '5c007dc4-6992-4f05-832c-383dbbb2b665', // Web3Forms form token
+          subject: `New Treatment Quotation Request - ${treatment} - IndiaCareTrip`,
+          from_name: fullName,
+          email: email,
+          phone: `${countryCode} ${phone}`,
+          treatment: treatment,
+          message: message,
+          recipient_email: 'farazashraf210@gmail.com',
+        }),
+      });
+    } catch (err) {
+      console.log('Quotation form note:', err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 700);
+    }
   };
 
   const handleReset = () => {
@@ -111,7 +130,7 @@ export const QuickInquiryDrawer = ({
                     INSTANT INQUIRY
                   </span>
                   <h3 className="text-xl sm:text-2xl font-bold text-[#113830]">
-                    Quick Consultation
+                    Get Treatment Quotation
                   </h3>
                 </div>
                 <button
@@ -134,7 +153,7 @@ export const QuickInquiryDrawer = ({
                       Inquiry Received
                     </h4>
                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-8">
-                      Thank you! Our dedicated clinical travel case manager will review your details and contact you within 24 hours.
+                      Thank you! Our dedicated clinical travel case manager at {brandName} will review your details and contact you within 24 hours.
                     </p>
                     <button
                       onClick={handleReset}
@@ -259,7 +278,7 @@ export const QuickInquiryDrawer = ({
                           'Submitting...'
                         ) : (
                           <>
-                            <span>Request Consultation</span>
+                            <span>Send Quotation Request</span>
                             <ArrowRight className="size-4" />
                           </>
                         )}

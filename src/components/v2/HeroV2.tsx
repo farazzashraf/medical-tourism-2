@@ -3,16 +3,16 @@ import { ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface HeroV2Props {
-  onQuickConsultation?: (email: string) => void;
+  onGetQuotation?: (email: string) => void;
 }
 
-export const HeroV2 = ({ onQuickConsultation }: HeroV2Props) => {
+export const HeroV2 = ({ onGetQuotation }: HeroV2Props) => {
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (onQuickConsultation) {
-      onQuickConsultation(email);
+    if (onGetQuotation) {
+      onGetQuotation(email);
     }
   };
 
@@ -50,12 +50,12 @@ export const HeroV2 = ({ onQuickConsultation }: HeroV2Props) => {
           Your seamless journey to health and wellness in India. We coordinate everything so you can focus on healing.
         </motion.p>
 
-        {/* Quick Inquiry Widget matching UX Pilot screenshot */}
+        {/* Quick Quotation Widget matching UX Pilot design */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-9 sm:mt-10 max-w-lg mx-auto w-full px-2"
+          className="mt-9 sm:mt-10 max-w-xl mx-auto w-full px-2"
         >
           <form 
             onSubmit={handleSubmit}
@@ -72,14 +72,14 @@ export const HeroV2 = ({ onQuickConsultation }: HeroV2Props) => {
               type="submit"
               className="mt-2 sm:mt-0 shrink-0 bg-[#0d766e] hover:bg-[#0b635c] text-white px-6 sm:px-7 py-3 rounded-xl sm:rounded-full text-sm font-semibold transition-all inline-flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
             >
-              <span>Quick Consultation</span>
+              <span>Get Quotation for Treatment</span>
               <ChevronRight className="size-4" />
             </button>
           </form>
 
           {/* Micro-copy below widget matching screenshot */}
           <p className="mt-3 text-xs sm:text-[13px] text-gray-400 text-center font-normal">
-            No commitment. Just expert guidance.
+            No commitment. Receive a confidential hospital cost estimate directly to your email.
           </p>
         </motion.div>
 

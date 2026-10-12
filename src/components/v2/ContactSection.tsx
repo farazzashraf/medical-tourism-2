@@ -37,15 +37,30 @@ export const ContactSection = ({
     { code: '+91', name: 'India (+91)', flag: '🇮🇳' },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate submission
-    setTimeout(() => {
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: '5c007dc4-6992-4f05-832c-383dbbb2b665',
+          subject: `New Treatment Quotation Request - ${brandName}`,
+          from_name: formData.fullName,
+          email: formData.email,
+          phone: `${formData.countryCode} ${formData.phone}`,
+          message: formData.message,
+          recipient_email: 'farazashraf210@gmail.com',
+        }),
+      });
+    } catch (err) {
+      console.log('Submission note:', err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 700);
+    }
   };
 
   return (
@@ -243,7 +258,7 @@ export const ContactSection = ({
                       disabled={isSubmitting}
                       className="w-full bg-[#0d766e] hover:bg-[#0b635c] text-white py-3.5 px-6 rounded-full font-semibold text-base transition-all shadow-md hover:shadow-lg disabled:opacity-70 cursor-pointer"
                     >
-                      {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
+                      {isSubmitting ? 'Sending Request...' : 'Get Your Quotation'}
                     </button>
                     
                     <p className="text-[12px] text-gray-400 text-center mt-3 font-normal">

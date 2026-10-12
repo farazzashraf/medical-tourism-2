@@ -23,18 +23,6 @@ export function App() {
     setIsDrawerOpen(true);
   };
 
-  const handleOpenEnquiry = (treatment?: string) => {
-    if (treatment) {
-      setSelectedTreatment(treatment);
-    }
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      setIsEnquiryModalOpen(true);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white text-[#113830] font-jakarta selection:bg-[#0d766e] selection:text-white overflow-x-hidden">
       {/* 1. Top Navbar (Logo + About + Services + Treatment + Contact + Get Started) */}
@@ -45,9 +33,9 @@ export function App() {
       />
 
       <main>
-        {/* 2. Hero Section: Quick Inquiry Search-Bar Widget & Headline */}
+        {/* 2. Hero Section: Quick Quotation Search-Bar Widget & Headline */}
         <HeroV2 
-          onQuickConsultation={(email) => handleOpenQuickInquiry(email)} 
+          onGetQuotation={(email: string) => handleOpenQuickInquiry(email)} 
         />
 
         {/* 3. Page 2: Our Mission, Hospital Atrium Photo + 15+ Partners, Why India?, Our Core Values */}
