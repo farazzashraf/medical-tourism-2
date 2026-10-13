@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, CheckCircle2, Shield, ArrowRight } from 'lucide-react';
+import { X, CheckCircle2, Shield, ArrowRight, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BRAND } from '../../config/brand';
 
@@ -213,7 +213,7 @@ export const QuickInquiryDrawer = ({
                         >
                           {countries.map((c) => (
                             <option key={c.code} value={c.code}>
-                              {c.flag} {c.code}
+                              {c.name}
                             </option>
                           ))}
                         </select>
@@ -300,10 +300,13 @@ export const QuickInquiryDrawer = ({
                   <span>Confidential & NABH Certified</span>
                 </div>
                 <a
-                  href={`tel:${BRAND.phone}`}
-                  className="hover:text-[#0d766e] font-semibold text-gray-700"
+                  href={`https://wa.me/${BRAND.whatsapp.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(brandName || BRAND.name)},%20I%20would%20like%20to%20inquire%20about%20treatment%20options.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-[#0d766e] hover:text-[#0b635c] font-semibold text-xs transition-colors"
                 >
-                  {BRAND.phoneDisplay}
+                  <MessageCircle className="size-3.5 text-[#25D366]" />
+                  <span>Chat on WhatsApp</span>
                 </a>
               </div>
             </motion.div>

@@ -3,9 +3,21 @@ import { motion } from 'framer-motion';
 
 interface HeroV2Props {
   onGetQuotation?: () => void;
+  headline?: string;
+  headlineAccent?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaSubtext?: string;
 }
 
-export const HeroV2 = ({ onGetQuotation }: HeroV2Props) => {
+export const HeroV2 = ({ 
+  onGetQuotation,
+  headline = 'World-Class Care Meets',
+  headlineAccent = 'Ancient Wisdom.',
+  subtitle = 'Your seamless journey to health and wellness in India. We coordinate everything so you can focus on healing.',
+  ctaText = 'Get Quotation',
+  ctaSubtext = 'No commitment. Just expert guidance & confidential cost breakdown.',
+}: HeroV2Props) => {
   return (
     <section 
       id="hero" 
@@ -17,30 +29,30 @@ export const HeroV2 = ({ onGetQuotation }: HeroV2Props) => {
 
       <div className="max-w-4xl mx-auto text-center z-10 w-full">
         
-        {/* Headline exactly matching uploaded mockup */}
+        {/* Headline — dynamic per region */}
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold text-[#113830] tracking-tight leading-[1.12]"
         >
-          World-Class Care Meets
+          {headline}
           <span className="block mt-2 font-serif-accent italic font-normal text-[#0d766e] tracking-normal">
-            Ancient Wisdom.
+            {headlineAccent}
           </span>
         </motion.h1>
 
-        {/* Subtitle matching uploaded mockup */}
+        {/* Subtitle — dynamic per region */}
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-6 sm:mt-7 text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-normal px-2"
         >
-          Your seamless journey to health and wellness in India. We coordinate everything so you can focus on healing.
+          {subtitle}
         </motion.p>
 
-        {/* Clean CTA Button: Opens Drawer for Full Quotation Details */}
+        {/* Clean CTA Button — dynamic text per region */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -51,12 +63,12 @@ export const HeroV2 = ({ onGetQuotation }: HeroV2Props) => {
             onClick={() => onGetQuotation && onGetQuotation()}
             className="group inline-flex items-center gap-2.5 bg-[#0d766e] hover:bg-[#0b635c] text-white px-8 py-4 rounded-full text-base sm:text-lg font-medium transition-all duration-300 shadow-md hover:shadow-xl hover:gap-3.5 cursor-pointer"
           >
-            <span>Get Quotation</span>
+            <span>{ctaText}</span>
             <ArrowRight className="size-5 transition-transform duration-300 group-hover:translate-x-0.5" />
           </button>
 
           <p className="text-xs sm:text-[13px] text-gray-400 text-center font-normal">
-            No commitment. Just expert guidance & confidential cost breakdown.
+            {ctaSubtext}
           </p>
         </motion.div>
 

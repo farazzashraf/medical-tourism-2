@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Phone, Mail, Lock, CheckCircle2 } from 'lucide-react';
+import { MessageCircle, Lock, CheckCircle2, Clock, ShieldCheck, HeartHandshake } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BRAND } from '../../config/brand';
 
@@ -9,11 +9,11 @@ interface ContactSectionProps {
 }
 
 export const ContactSection = ({ 
-  initialTreatment = '',
+  initialTreatment = 'General Medical Consultation',
   brandName = BRAND.name 
 }: ContactSectionProps) => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    name: '',
     email: '',
     countryCode: '+971',
     phone: '',
@@ -24,18 +24,20 @@ export const ContactSection = ({
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const countries = [
-    { code: '+971', name: 'United Arab Emirates (+971)', flag: '🇦🇪' },
-    { code: '+1', name: 'United States (+1)', flag: '🇺🇸' },
-    { code: '+44', name: 'United Kingdom (+44)', flag: '🇬🇧' },
-    { code: '+968', name: 'Oman (+968)', flag: '🇴🇲' },
-    { code: '+966', name: 'Saudi Arabia (+966)', flag: '🇸🇦' },
-    { code: '+965', name: 'Kuwait (+965)', flag: '🇰🇼' },
-    { code: '+974', name: 'Qatar (+974)', flag: '🇶🇦' },
-    { code: '+973', name: 'Bahrain (+973)', flag: '🇧🇭' },
-    { code: '+61', name: 'Australia (+61)', flag: '🇦🇺' },
-    { code: '+1-CA', name: 'Canada (+1)', flag: '🇨🇦' },
-    { code: '+91', name: 'India (+91)', flag: '🇮🇳' },
+    { code: '+971', name: 'United Arab Emirates (+971)' },
+    { code: '+966', name: 'Saudi Arabia (+966)' },
+    { code: '+968', name: 'Oman (+968)' },
+    { code: '+974', name: 'Qatar (+974)' },
+    { code: '+965', name: 'Kuwait (+965)' },
+    { code: '+973', name: 'Bahrain (+973)' },
+    { code: '+44', name: 'United Kingdom (+44)' },
+    { code: '+1', name: 'United States (+1)' },
+    { code: '+1-CA', name: 'Canada (+1)' },
+    { code: '+61', name: 'Australia (+61)' },
+    { code: '+91', name: 'India (+91)' },
   ];
+
+  const whatsappPhone = BRAND.whatsapp.replace(/[^0-9]/g, '');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,8 +51,8 @@ export const ContactSection = ({
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             access_key: accessKey,
-            subject: `New Treatment Quotation Request - ${brandName}`,
-            from_name: formData.fullName,
+            subject: `New Medical Quotation Inquiry - ${formData.name} - IndiaCareTrip`,
+            from_name: formData.name,
             email: formData.email,
             phone: `${formData.countryCode} ${formData.phone}`,
             message: formData.message,
@@ -67,112 +69,119 @@ export const ContactSection = ({
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-28 bg-[#fafbf9]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-20 sm:py-28 bg-[#f8faf9]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Card Container matching Page 5 */}
-        <div className="bg-white rounded-3xl sm:rounded-[32px] overflow-hidden shadow-2xl border border-gray-100 grid grid-cols-1 lg:grid-cols-12">
+        {/* Main Split Container */}
+        <div className="rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-gray-100">
           
-          {/* Left Column: Deep Emerald Container matching Page 5 */}
-          <div className="lg:col-span-5 bg-[#0e3e34] text-white p-8 sm:p-12 md:p-14 flex flex-col justify-between">
-            <div>
-              <h2 className="text-3xl sm:text-4xl md:text-[42px] font-bold tracking-tight leading-[1.15] text-white">
+          {/* Left Column: Dark Emerald Card */}
+          <div className="lg:col-span-5 bg-[#113830] text-white p-8 sm:p-12 md:p-14 flex flex-col justify-between relative overflow-hidden">
+            
+            {/* Background luxury gradient overlay */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-60 h-60 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10">
+              <span className="text-[11px] font-bold tracking-[0.25em] text-emerald-300 uppercase block mb-3">
+                GET STARTED
+              </span>
+
+              <h2 className="text-3xl sm:text-4xl md:text-[42px] font-bold text-white tracking-tight leading-tight">
                 Start Your
                 <span className="block mt-1">Journey.</span>
               </h2>
 
               <p className="mt-4 text-emerald-100/80 text-sm sm:text-base leading-relaxed font-normal">
-                Fill out the form and a dedicated case manager will reach out within 24 hours to guide you.
+                Fill out the form and a dedicated medical coordinator will prepare your confidential treatment quotation within 24 hours.
               </p>
 
-              {/* Contact details matching mockup */}
-              <div className="mt-10 sm:mt-12 space-y-6">
-                
-                {/* Phone */}
-                <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-[#165649] flex items-center justify-center text-teal-200 shrink-0">
-                    <Phone className="size-5" />
+              {/* WhatsApp direct chat card */}
+              <div className="mt-8">
+                <a 
+                  href={`https://wa.me/${whatsappPhone}?text=Hello%20${encodeURIComponent(brandName)},%20I%20would%20like%20to%20inquire%20about%20medical%20travel%20treatments.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3.5 bg-[#165649] hover:bg-[#1b6b5b] p-4 rounded-2xl transition-all border border-emerald-700/40 group cursor-pointer"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-[#25D366] flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <MessageCircle className="size-5" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-semibold text-emerald-300 uppercase tracking-wider">
-                      Call Us
+                    <div className="text-[11px] font-bold text-emerald-300 uppercase tracking-wider">
+                      Instant WhatsApp
                     </div>
-                    <a 
-                      href={`tel:${BRAND.phone}`}
-                      className="text-base sm:text-lg font-bold text-white hover:text-emerald-200 transition-colors"
-                    >
-                      {BRAND.phoneDisplay}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-[#165649] flex items-center justify-center text-teal-200 shrink-0">
-                    <Mail className="size-5" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-semibold text-emerald-300 uppercase tracking-wider">
-                      Email Us
+                    <div className="text-sm sm:text-base font-semibold text-white">
+                      Chat on WhatsApp
                     </div>
-                    <a 
-                      href={`mailto:${BRAND.email}`}
-                      className="text-base sm:text-lg font-bold text-white hover:text-emerald-200 transition-colors"
-                    >
-                      {BRAND.email}
-                    </a>
                   </div>
-                </div>
+                </a>
+              </div>
 
+              {/* Trust Indicators */}
+              <div className="mt-8 space-y-4">
+                <div className="flex items-center gap-3 text-xs sm:text-sm text-emerald-100/85">
+                  <Clock className="size-4 text-emerald-300 shrink-0" />
+                  <span>Response and roadmap review within 24 hours</span>
+                </div>
+                <div className="flex items-center gap-3 text-xs sm:text-sm text-emerald-100/85">
+                  <ShieldCheck className="size-4 text-emerald-300 shrink-0" />
+                  <span>JCI & NABH accredited partner hospitals</span>
+                </div>
+                <div className="flex items-center gap-3 text-xs sm:text-sm text-emerald-100/85">
+                  <HeartHandshake className="size-4 text-emerald-300 shrink-0" />
+                  <span>Transparent all-inclusive pricing with zero surprises</span>
+                </div>
               </div>
             </div>
 
-            {/* Bottom Security Note matching mockup */}
-            <div className="mt-12 pt-6 border-t border-[#1a5548] flex items-start gap-2.5 text-xs text-emerald-200/70 font-normal">
+            {/* Bottom Security Note */}
+            <div className="mt-10 pt-6 border-t border-[#1a5548] flex items-start gap-2.5 text-xs text-emerald-200/70 font-normal relative z-10">
               <Lock className="size-4 shrink-0 text-emerald-400 mt-0.5" />
               <span>
-                Secure & Confidential. Your medical data is protected under international privacy standards.
+                Secure & Confidential. Your medical data is strictly protected under international healthcare privacy standards.
               </span>
             </div>
           </div>
 
-          {/* Right Column: Clean Form Container matching Page 5 */}
+          {/* Right Column: Clean Form Container */}
           <div className="lg:col-span-7 bg-white p-8 sm:p-12 md:p-14 flex flex-col justify-center">
             <AnimatePresence mode="wait">
               {isSubmitted ? (
                 <motion.div
+                  key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
                   className="py-12 text-center"
                 >
                   <div className="w-16 h-16 rounded-full bg-teal-50 text-[#0d766e] flex items-center justify-center mx-auto mb-5">
                     <CheckCircle2 className="size-10" />
                   </div>
                   <h3 className="text-2xl font-bold text-[#113830] mb-2">
-                    Enquiry Received
+                    Inquiry Received
                   </h3>
-                  <p className="text-gray-600 max-w-md mx-auto mb-6 text-sm sm:text-base">
-                    Thank you! A senior medical case coordinator from {brandName} will review your request and get in touch within 24 hours.
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed max-w-md mx-auto mb-8 font-normal">
+                    Thank you, {formData.name}. Our patient care coordinator will review your requirements and reach out within 24 hours with your customized quotation.
                   </p>
                   <button
                     onClick={() => {
                       setIsSubmitted(false);
                       setFormData({
-                        fullName: '',
+                        name: '',
                         email: '',
                         countryCode: '+971',
                         phone: '',
                         message: '',
                       });
                     }}
-                    className="inline-flex items-center gap-2 bg-[#0d766e] hover:bg-[#0b635c] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all"
+                    className="bg-[#0d766e] hover:bg-[#0b635c] text-white px-8 py-3.5 rounded-full text-sm font-semibold transition-all shadow-md cursor-pointer"
                   >
-                    Send Another Inquiry
+                    Submit Another Inquiry
                   </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form key="form" onSubmit={handleSubmit} className="space-y-6">
                   
                   {/* Full Name & Email Address */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -183,8 +192,8 @@ export const ContactSection = ({
                       <input
                         type="text"
                         required
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="John Doe"
                         className="w-full px-4 py-3 rounded-xl bg-gray-50/80 border border-gray-200 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0d766e] focus:bg-white transition-all"
                       />
@@ -218,7 +227,7 @@ export const ContactSection = ({
                       >
                         {countries.map((c) => (
                           <option key={c.code} value={c.code}>
-                            {c.flag} {c.name}
+                            {c.name}
                           </option>
                         ))}
                       </select>
@@ -254,20 +263,20 @@ export const ContactSection = ({
                     />
                   </div>
 
-                  {/* Submit Button matching mockup */}
+                  {/* Submit Button */}
                   <div>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#0d766e] hover:bg-[#0b635c] text-white py-3.5 px-6 rounded-full font-semibold text-base transition-all shadow-md hover:shadow-lg disabled:opacity-70 cursor-pointer"
+                      className="w-full bg-[#0d766e] hover:bg-[#0b635c] text-white py-4 rounded-xl text-base font-semibold transition-all shadow-md hover:shadow-lg disabled:opacity-50 cursor-pointer"
                     >
                       {isSubmitting ? 'Sending Request...' : 'Get Your Quotation'}
                     </button>
-                    
-                    <p className="text-[12px] text-gray-400 text-center mt-3 font-normal">
-                      By submitting, you agree to our privacy policy.
-                    </p>
                   </div>
+
+                  <p className="text-center text-xs text-gray-400 font-normal">
+                    By submitting, you agree to receive medical travel guidance from {brandName}.
+                  </p>
 
                 </form>
               )}

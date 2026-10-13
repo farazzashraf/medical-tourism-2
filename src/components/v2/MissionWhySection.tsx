@@ -1,11 +1,33 @@
-import { ShieldCheck, HeartHandshake, Globe2 } from 'lucide-react';
+import { ShieldCheck, HeartHandshake, Award } from 'lucide-react';
 import { BRAND } from '../../config/brand';
+import type { WhyIndiaItem } from '../../data/geoContent';
 
 interface MissionWhySectionProps {
   brandName?: string;
+  whyIndiaTitle?: string;
+  whyIndiaReasons?: WhyIndiaItem[];
 }
 
-export const MissionWhySection = ({ brandName = BRAND.name }: MissionWhySectionProps) => {
+const DEFAULT_REASONS: WhyIndiaItem[] = [
+  {
+    title: 'Clinical Excellence',
+    description: 'Access JCI and NABH accredited hospitals equipped with the latest surgical technology and robotic systems.',
+  },
+  {
+    title: 'Significant Cost Savings',
+    description: 'Experience world-class treatment at significant cost savings compared to Western private healthcare without compromising clinical safety.',
+  },
+  {
+    title: 'Holistic Recovery',
+    description: 'Complement modern medicine with traditional wellness practices like Ayurveda and Yoga for a faster, deeper recovery.',
+  },
+];
+
+export const MissionWhySection = ({ 
+  brandName = BRAND.name,
+  whyIndiaTitle = 'Why India?',
+  whyIndiaReasons = DEFAULT_REASONS,
+}: MissionWhySectionProps) => {
   return (
     <section id="about" className="py-20 sm:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,14 +42,14 @@ export const MissionWhySection = ({ brandName = BRAND.name }: MissionWhySectionP
             <span className="block mt-1">Healthcare Travel in India.</span>
           </h2>
           <p className="mt-6 text-base sm:text-lg text-gray-600 leading-relaxed font-normal">
-            {brandName} was founded on a simple belief: healthcare should be global, seamless, and deeply personal. We bridge the gap between world-class Indian medical facilities and international patients.
+            {brandName} was founded on a simple belief: healthcare should be accessible, seamless, and deeply personal. We bridge the gap between premier Indian medical facilities and patients seeking specialized care.
           </p>
         </div>
 
         {/* Main Content Split: Image on Left + Why India on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* Left Column: Hospital Atrium Photo + 15+ Floating Badge */}
+          {/* Left Column: Hospital Atrium Photo + JCI & NABH Floating Badge */}
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-xl border border-gray-100 aspect-[4/5] sm:aspect-[4/4.5] max-h-[580px] w-full bg-gray-100">
               <img 
@@ -42,52 +64,33 @@ export const MissionWhySection = ({ brandName = BRAND.name }: MissionWhySectionP
 
               {/* Floating Badge matching uploaded mockup */}
               <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl shadow-xl border border-gray-100/80 flex flex-col items-start min-w-[170px]">
-                <div className="text-3xl sm:text-4xl font-extrabold text-[#0d766e] tracking-tight">
-                  15+
+                <div className="text-2xl sm:text-3xl font-extrabold text-[#0d766e] tracking-tight">
+                  JCI & NABH
                 </div>
                 <div className="text-xs sm:text-sm font-medium text-gray-600 mt-0.5">
-                  Specialist Partners
+                  Accredited Network
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Why India? */}
+          {/* Right Column: Why India? — Dynamic content */}
           <div className="lg:col-span-6 flex flex-col justify-center">
             <h3 className="text-2xl sm:text-3xl font-bold text-[#113830] mb-8 tracking-tight">
-              Why India?
+              {whyIndiaTitle}
             </h3>
 
             <div className="space-y-8">
-              {/* Item 1: Clinical Excellence */}
-              <div>
-                <h4 className="text-lg sm:text-xl font-bold text-[#113830] mb-2">
-                  Clinical Excellence
-                </h4>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                  Access JCI and NABH accredited hospitals equipped with the latest surgical technology and robotic systems.
-                </p>
-              </div>
-
-              {/* Item 2: Cost Efficiency */}
-              <div>
-                <h4 className="text-lg sm:text-xl font-bold text-[#113830] mb-2">
-                  Cost Efficiency
-                </h4>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                  Experience world-class treatment at 60-80% lower costs compared to Western countries without compromising quality.
-                </p>
-              </div>
-
-              {/* Item 3: Holistic Recovery */}
-              <div>
-                <h4 className="text-lg sm:text-xl font-bold text-[#113830] mb-2">
-                  Holistic Recovery
-                </h4>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                  Complement modern medicine with traditional wellness practices like Ayurveda and Yoga for a faster, deeper recovery.
-                </p>
-              </div>
+              {whyIndiaReasons.map((reason) => (
+                <div key={reason.title}>
+                  <h4 className="text-lg sm:text-xl font-bold text-[#113830] mb-2">
+                    {reason.title}
+                  </h4>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
+                    {reason.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -127,16 +130,16 @@ export const MissionWhySection = ({ brandName = BRAND.name }: MissionWhySectionP
               </p>
             </div>
 
-            {/* Value 3: Global Integrity */}
+            {/* Value 3: Clinical Integrity */}
             <div className="flex flex-col items-center">
               <div className="w-14 h-14 rounded-2xl bg-teal-50 flex items-center justify-center text-[#0d766e] mb-5 shadow-xs border border-teal-100/60">
-                <Globe2 className="size-7" />
+                <Award className="size-7" />
               </div>
               <h4 className="text-lg sm:text-xl font-bold text-[#113830] mb-2">
-                Global Integrity
+                Clinical Integrity
               </h4>
               <p className="text-sm sm:text-base text-gray-600 max-w-xs leading-relaxed font-normal">
-                Ethical practices that meet international healthcare standards.
+                Ethical practices meeting rigorous clinical healthcare standards.
               </p>
             </div>
 

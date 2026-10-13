@@ -202,3 +202,31 @@ img, video, canvas, svg {
   scrollbar-width: none;  /* Firefox */
 }
 
+/* =====================================================================
+   iOS Safari & WebKit Mobile Optimizations
+   ===================================================================== */
+
+/* 1. Prevent iOS Safari auto-zoom when tapping inputs */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* 2. WebKit smooth momentum scrolling */
+.overflow-y-auto, .overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 3. Text size inflation fix */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 4. Tap highlight transparency */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+

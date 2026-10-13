@@ -433,10 +433,10 @@ export const EnquiryFormInner: React.FC<EnquiryFormInnerProps> = ({
         className="w-full inline-flex items-center justify-center cursor-pointer font-jakarta gap-2 rounded-full text-sm sm:text-base font-semibold transition-all duration-300 group bg-[#183f34] text-white hover:bg-[#12332a] shadow-lg hover:shadow-xl py-3.5 sm:py-4 px-4 sm:px-8 mt-2 disabled:opacity-50 disabled:pointer-events-none text-center"
       >
         {isSubmitting ? (
-          <span>Securing Consultation...</span>
+          <span>Preparing Quotation...</span>
         ) : (
           <>
-            <span>Get Free Consultation & Itemised Quote</span>
+            <span>Get Quotation & Itemised Breakdown</span>
             <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
           </>
         )}
